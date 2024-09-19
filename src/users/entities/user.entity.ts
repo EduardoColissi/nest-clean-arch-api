@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 import crypto from 'crypto';
 
 @Entity()
@@ -14,11 +14,7 @@ export class User {
     default: () => 'CURRENT_TIMESTAMP',
   })
   created_at: Date;
-  @Column({
-    type: 'datetime',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
-  })
+  @UpdateDateColumn({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
 
   constructor(
