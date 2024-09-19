@@ -1,0 +1,32 @@
+###
+# @name createUser
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Eduardo Colissi",
+  "email": "colissi.eduardo@gmail.com"
+}
+
+###
+@user_id = {{createUser.response.body.id}}
+
+###
+
+GET http://localhost:3000/users
+
+###
+
+GET http://localhost:3000/users/{{user_id}}
+###
+
+PATCH http://localhost:3000/users/{{user_id}}
+Content-Type: application/json
+
+{
+  "name": "Eduardo Colissi Wiceskoski"
+}
+
+###
+
+DELETE http://localhost:3000/users/{{user_id}}
