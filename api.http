@@ -21,6 +21,7 @@ GET http://localhost:3000/users/{{user_id}}
 ###
 
 PATCH http://localhost:3000/users/{{user_id}}
+Content-Type: application/json
 
 {
   "name": "Eduardo Colissi Wiceskoski"
