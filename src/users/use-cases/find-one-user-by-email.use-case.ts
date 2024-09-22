@@ -2,19 +2,13 @@ import { Injectable, Inject } from '@nestjs/common';
 import { IUserRepository } from '../user.repository';
 
 @Injectable()
-export class DeleteUserUseCase {
+export class FindOneUserByEmailUseCase {
   constructor(
     @Inject('IUserRepository')
     private readonly userRepo: IUserRepository,
   ) {}
 
-  async execute(id: string) {
-    const user = await this.userRepo.findOneById(id);
-
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    return this.userRepo.delete(id);
+  execute(email: string) {
+    return this.userRepo.findOneByEmail(email);
   }
 }

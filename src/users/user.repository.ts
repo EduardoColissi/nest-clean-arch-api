@@ -7,7 +7,8 @@ export interface IUserRepository {
   create(user: User): Promise<void>;
   update(user: User): Promise<void>;
   findAll(): Promise<User[]>;
-  findOne(id: string): Promise<User>;
+  findOneById(id: string): Promise<User>;
+  findOneByEmail(email: string): Promise<User>;
   delete(id: string): Promise<void>;
 }
 
@@ -30,8 +31,12 @@ export class UserTypeOrmRepository implements IUserRepository {
     return this.typeOrmRepo.find();
   }
 
-  findOne(id: string): Promise<User> {
+  findOneById(id: string): Promise<User> {
     return this.typeOrmRepo.findOne({ where: { id } });
+  }
+
+  findOneByEmail(email: string): Promise<User> {
+    return this.typeOrmRepo.findOne({ where: { email } });
   }
 
   async delete(id: string): Promise<void> {
