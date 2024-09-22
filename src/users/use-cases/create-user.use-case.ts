@@ -11,6 +11,10 @@ export class CreateUserUseCase {
   ) {}
 
   async execute(input: CreateUserDto) {
+    const userExists = await this.userRepo.findOneByEmail(input.email);
+    if (userExists) {
+      throw new Error('User already exists');
+    }
     const user = new User(input);
     await this.userRepo.create(user);
     return user;

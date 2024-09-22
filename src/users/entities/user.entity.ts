@@ -7,8 +7,12 @@ export class User {
   id: string;
   @Column()
   name: string;
-  @Column()
+  @Column({
+    unique: true,
+  })
   email: string;
+  @Column()
+  password: string;
   @Column({
     type: 'datetime',
     default: () => 'CURRENT_TIMESTAMP',
@@ -21,6 +25,7 @@ export class User {
     props: {
       name: string;
       email: string;
+      password: string;
       created_at?: Date;
       updated_at?: Date;
     },
@@ -28,5 +33,13 @@ export class User {
   ) {
     Object.assign(this, props);
     this.id = id ?? crypto.randomUUID();
+    this.password = this.createHash(this.password);
+  }
+
+  createHash(password: string): string {
+    return crypto
+      .createHash('sha256')
+      .update(password ?? '')
+      .digest('hex');
   }
 }
